@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lipids — Pre-Class</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --stir-dark: #003820;
+  --stir-mid:  #006938;
+  --stir:      #006938;
+  --stir-light:#77BF22;
+  --stir-pale: #edf7e1;
+  --amber:     #e8960a;
+  --amber-light:#fef3d8;
+  --amber-pale:#fffbf0;
+  --rust:      #b84a1a;
+  --rust-light:#faeae0;
+  --snow:      #f8fffe;
+  --ink:       #0d1f1f;
+  --ink-mid:   #2a4040;
+  --ink-light: #4a6868;
+  --green:     #1a8040;
+  --green-light:#e6f5ee;
+  --red:       #b83030;
+  --red-light: #faeaea;
+  --gold:      #d4a800;
+  --mono: 'DM Mono', monospace;
+  --serif:'Nunito',sans-serif;
+  --sans: 'DM Sans', sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--snow);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.75;}
+
+.hero{background:linear-gradient(135deg,#001f10 0%,#003820 55%,#006938 100%);padding:52px 40px 44px;position:relative;overflow:hidden;border-bottom:4px solid var(--amber);}
+.hero::before{content:'C₅₅H₁₀₄O₆';position:absolute;right:-10px;top:10px;font-family:var(--mono);font-size:5.5rem;color:rgba(255,255,255,0.04);pointer-events:none;}
+.hero-tag{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;}
+.hero h1{font-family:var(--serif);letter-spacing:-0.01em;font-size:clamp(2.2rem,5vw,3.4rem);color:#fff;line-height:1.05;margin-bottom:14px;}
+.hero h1 em{color:var(--amber);}
+.hero-sub{color:rgba(255,255,255,0.75);font-size:0.97rem;max-width:620px;line-height:1.65;}
+.pre-class-badge{display:inline-flex;align-items:center;gap:6px;background:var(--amber);color:var(--ink);font-family:var(--mono);font-size:0.65rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:18px;}
+
+/* EDITION REF */
+.edition-ref{background:var(--amber-light);border:1px solid var(--amber);border-radius:8px;padding:12px 18px;margin:24px 0 8px;font-size:0.86rem;color:#3a2a00;display:flex;align-items:center;gap:10px;}
+.edition-ref strong{color:var(--rust);}
+
+.wrap{max-width:940px;margin:0 auto;padding:0 28px 60px;}
+.outcomes{background:var(--stir-dark);border-radius:12px;padding:26px 32px;margin:24px 0 32px;}
+.outcomes h2{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;}
+.outcomes ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
+.outcomes li{display:flex;gap:12px;align-items:flex-start;font-size:0.92rem;color:rgba(255,255,255,0.82);line-height:1.5;}
+.outcomes li::before{content:'→';color:var(--stir-light);flex-shrink:0;font-weight:700;margin-top:1px;}
+
+.sec-label{font-family:var(--mono);font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--stir);margin-top:44px;margin-bottom:6px;}
+.sec-title{font-family:var(--serif);letter-spacing:-0.01em;font-size:1.7rem;color:var(--ink);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--stir-pale);}
+.body-text{font-size:0.95rem;color:var(--ink-mid);line-height:1.75;margin-bottom:16px;}
+.body-text strong{color:var(--ink);font-weight:600;}
+
+/* INLINE CITATION */
+.cite{font-family:var(--mono);font-size:0.72rem;color:var(--rust);background:var(--rust-light);padding:1px 6px;border-radius:3px;white-space:nowrap;}
+
+.callout{border-radius:10px;padding:18px 22px;margin:18px 0;font-size:0.9rem;line-height:1.6;}
+.callout-tag{font-family:var(--mono);font-size:0.58rem;letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:6px;}
+.callout-key{background:var(--stir-pale);border-left:4px solid var(--stir-light);}
+.callout-key .callout-tag{color:var(--stir);}
+.callout-key{color:var(--ink-mid);}
+.callout-warn{background:var(--amber-light);border-left:4px solid var(--amber);}
+.callout-warn .callout-tag{color:var(--amber);}
+.callout-warn{color:#3a2a00;}
+
+.diagram-wrap{background:#fff;border:1px solid #ddd;border-radius:12px;padding:24px;margin:20px 0;text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.06);}
+.diagram-title{font-family:var(--mono);font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stir);margin-bottom:16px;}
+.diagram-caption{font-size:0.82rem;color:var(--ink-light);margin-top:12px;line-height:1.5;}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:18px 0;}
+.card{background:#fff;border:1px solid #e0eded;border-radius:10px;padding:20px;box-shadow:0 1px 6px rgba(0,0,0,0.04);transition:box-shadow 0.2s,transform 0.2s;}
+.card:hover{box-shadow:0 4px 16px rgba(0,105,56,0.12);transform:translateY(-2px);}
+.card-icon{font-size:1.6rem;margin-bottom:8px;display:block;}
+.card-title{font-weight:700;font-size:0.93rem;color:var(--ink);margin-bottom:5px;}
+.card-body{font-size:0.85rem;color:var(--ink-light);line-height:1.55;}
+.card-ref{font-family:var(--mono);font-size:0.72rem;color:var(--rust);margin-top:8px;display:block;}
+
+.cmp-table{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;margin:18px 0;box-shadow:0 2px 10px rgba(0,0,0,0.07);}
+.cmp-table thead tr{background:var(--stir-mid);}
+.cmp-table thead th{padding:12px 16px;text-align:left;font-family:var(--mono);font-size:0.63rem;letter-spacing:0.18em;text-transform:uppercase;color:#fff;}
+.cmp-table tbody tr:nth-child(odd){background:#fff;}
+.cmp-table tbody tr:nth-child(even){background:var(--stir-pale);}
+.cmp-table tbody tr:hover{background:#d4edc4;}
+.cmp-table td{padding:12px 16px;font-size:0.88rem;border-bottom:1px solid #e0eded;color:var(--ink-mid);vertical-align:top;line-height:1.5;}
+.cmp-table td:first-child{font-weight:600;color:var(--ink);}
+
+.terms-grid{display:flex;flex-direction:column;gap:0;margin:18px 0;overflow:hidden;border-radius:10px;border:1px solid #dde8e8;box-shadow:0 2px 10px rgba(0,0,0,0.05);}
+.term-row{display:grid;grid-template-columns:200px 1fr;}
+.term-row:nth-child(odd){background:#fff;}
+.term-row:nth-child(even){background:var(--stir-pale);}
+.term-key{padding:13px 16px;font-weight:700;font-size:0.88rem;color:var(--stir);border-right:1px solid #dde8e8;}
+.term-def{padding:13px 16px;font-size:0.88rem;color:var(--ink-mid);line-height:1.5;}
+
+.resources{display:flex;flex-direction:column;gap:10px;margin:18px 0;}
+.resource-link{display:flex;align-items:center;gap:14px;padding:14px 18px;background:#fff;border:1px solid #dde8e8;border-radius:9px;text-decoration:none;color:var(--ink);transition:all 0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.04);}
+.resource-link:hover{border-color:var(--stir-light);box-shadow:0 3px 12px rgba(0,105,56,0.12);transform:translateX(3px);}
+.resource-icon{font-size:1.3rem;flex-shrink:0;}
+.resource-text .rt{font-weight:600;font-size:0.9rem;color:var(--ink);display:block;margin-bottom:2px;}
+.resource-text .rs{font-size:0.8rem;color:var(--ink-light);}
+.resource-arrow{margin-left:auto;color:var(--stir-light);font-size:1.1rem;}
+
+.check-q{background:#fff;border:1px solid #dde8e8;border-radius:10px;padding:22px 24px;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,0.04);}
+.check-q-num{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--stir-light);margin-bottom:6px;}
+.check-q-text{font-weight:600;font-size:0.95rem;color:var(--ink);line-height:1.5;margin-bottom:14px;}
+.check-opts{display:flex;flex-direction:column;gap:7px;}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:var(--snow);border:1px solid #dde8e8;border-radius:7px;cursor:pointer;font-size:0.88rem;color:var(--ink-mid);transition:all 0.18s;width:100%;font-family:var(--sans);text-align:left;line-height:1.45;}
+.opt:hover:not(:disabled){border-color:var(--stir-light);background:var(--stir-pale);color:var(--ink);}
+.opt-key{font-family:var(--mono);font-size:0.68rem;background:var(--stir-pale);border:1px solid var(--stir-light);color:var(--stir);padding:2px 7px;border-radius:4px;flex-shrink:0;margin-top:1px;}
+.opt.correct{border-color:#0a9070!important;background:rgba(10,144,112,0.09)!important;color:#0a4a38!important;}
+.opt.correct .opt-key{color:#0a9070;border-color:#0a9070;background:rgba(10,144,112,0.12);}
+.opt.wrong{border-color:#c04040!important;background:rgba(192,64,64,0.07)!important;color:#6a2020!important;opacity:0.7;}
+.opt:disabled{cursor:default;}
+.fb{margin-top:10px;padding:11px 15px;border-radius:7px;font-size:0.84rem;line-height:1.55;display:none;}
+.fb.show{display:block;}
+.fb.ok{background:rgba(10,144,112,0.09);border:1px solid rgba(10,144,112,0.3);color:#0a4a38;}
+.fb.fail{background:rgba(192,64,64,0.07);border:1px solid rgba(192,64,64,0.22);color:#6a2020;}
+
+.page-foot{background:var(--stir-dark);color:rgba(255,255,255,0.55);text-align:center;padding:20px;font-family:var(--mono);font-size:0.68rem;letter-spacing:0.1em;margin-top:20px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="pre-class-badge">📖 Pre-Class Preparation</div>
+  <div class="hero-tag">Biomolecules · Module 2 of 4</div>
+  <h1>Lipids — Structure & Function</h1>
+  <p class="hero-sub">This page provides the foundational content for our session on lipids. Work through it carefully before attending class, with particular attention to how the hydrophobic properties of lipids underpin their structural and functional roles in biological systems.</p>
+</div>
+
+<div class="wrap">
+
+  <div class="edition-ref">
+    📘 <span><strong>Campbell Biology, 12th Edition — Chapter 5, pp. 75–80.</strong> Figures 5.10–5.14 are particularly important. Read these sections before working through this page.</span>
+  </div>
+
+  <div class="outcomes">
+    <h2>By the end of this pre-class you should be able to:</h2>
+    <ul>
+      <li>Explain why lipids are grouped together by behaviour (hydrophobicity) rather than by a shared monomer-polymer relationship</li>
+      <li>Describe the structure of a triglyceride and explain how ester bonds are formed by dehydration synthesis</li>
+      <li>Distinguish between saturated and unsaturated fatty acids and predict their physical properties</li>
+      <li>Explain the structure of a phospholipid and describe its amphipathic nature</li>
+      <li>Describe the fluid mosaic model of the cell membrane and explain the role of cholesterol</li>
+      <li>Identify the roles of steroids and waxes as additional lipid types</li>
+    </ul>
+  </div>
+
+  <!-- SECTION 1: WHAT ARE LIPIDS -->
+  <div class="sec-label">Section 01</div>
+  <div class="sec-title">What Are Lipids?</div>
+
+  <p class="body-text">Lipids differ from other biological macromolecules in an important way: they are not defined by a shared chemical structure or a monomer-polymer relationship. Instead, they are grouped together because they share a physical property — they are <strong>hydrophobic</strong> (water-fearing) or <strong>amphipathic</strong> (having both hydrophobic and hydrophilic regions). This hydrophobicity arises from their predominantly hydrocarbon composition. <span class="cite">Ch. 5, p. 75</span></p>
+
+  <p class="body-text">The major types of lipids are <strong>fats (triglycerides)</strong>, <strong>phospholipids</strong>, <strong>steroids</strong>, and <strong>waxes</strong>. Each has a distinct structure and function, but all share the defining characteristic of being largely or entirely non-polar.</p>
+
+  <div class="callout callout-key">
+    <span class="callout-tag">🔑 Key Distinction</span>
+    Unlike carbohydrates, proteins, and nucleic acids, <strong>lipids are not true polymers</strong> — they are not assembled from repeating monomers by dehydration synthesis in the same systematic way. A triglyceride is assembled from glycerol and three fatty acids, but these are not "monomers" in the polymer sense. This is why lipids are sometimes called a "diverse group" rather than a macromolecule family in the strict sense. <span class="cite">Ch. 5, p. 75</span>
+  </div>
+
+  <!-- SECTION 2: FATS / TRIGLYCERIDES -->
+  <div class="sec-label">Section 02</div>
+  <div class="sec-title">Fats — Triglycerides</div>
+
+  <p class="body-text">A <strong>fat (triglyceride)</strong> consists of one <strong>glycerol</strong> molecule joined to three <strong>fatty acid</strong> chains by <strong>ester bonds</strong>, formed via dehydration synthesis — one water molecule is released per bond, so three water molecules are released in total. The glycerol backbone is a three-carbon alcohol; each fatty acid is a long hydrocarbon chain with a carboxyl group (—COOH) at one end. <span class="cite">Fig. 5.10, p. 76</span></p>
+
+  <!-- SVG: Triglyceride structure -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Structure of a Triglyceride</div>
+    <svg viewBox="0 0 760 310" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- Glycerol label -->
+      <text x="85" y="22" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#003820" font-weight="600">Glycerol</text>
+      <!-- Glycerol backbone box -->
+      <rect x="28" y="30" width="114" height="228" rx="10" fill="#edf7e1" stroke="#006938" stroke-width="2"/>
+      <!-- Carbon atoms -->
+      <text x="85" y="100" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#006938" font-weight="600">C</text>
+      <text x="85" y="122" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#006938">|</text>
+      <text x="85" y="152" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#006938" font-weight="600">C</text>
+      <text x="85" y="174" text-anchor="middle" font-family="DM Mono,monospace" font-size="11" fill="#006938">|</text>
+      <text x="85" y="204" text-anchor="middle" font-family="DM Mono,monospace" font-size="12" fill="#006938" font-weight="600">C</text>
+      <!-- Ester bonds — clearly spaced -->
+      <text x="150" y="80"  font-family="DM Mono,monospace" font-size="8" fill="#c04040">ester bond</text>
+      <text x="150" y="96"  font-family="DM Mono,monospace" font-size="11" fill="#c04040" font-weight="600">—O—</text>
+      <text x="150" y="133" font-family="DM Mono,monospace" font-size="8" fill="#c04040">ester bond</text>
+      <text x="150" y="149" font-family="DM Mono,monospace" font-size="11" fill="#c04040" font-weight="600">—O—</text>
+      <text x="150" y="186" font-family="DM Mono,monospace" font-size="8" fill="#c04040">ester bond</text>
+      <text x="150" y="202" font-family="DM Mono,monospace" font-size="11" fill="#c04040" font-weight="600">—O—</text>
+      <!-- Fatty acid boxes — same height as ester bond rows -->
+      <rect x="202" y="68"  width="520" height="42" rx="7" fill="#fef3d8" stroke="#e8960a" stroke-width="1.5"/>
+      <text x="218" y="85"  font-family="DM Sans,sans-serif" font-size="9" fill="#3a2a00" font-weight="600">Fatty acid 1</text>
+      <text x="218" y="101" font-family="DM Mono,monospace" font-size="9" fill="#5a4a20">C=O · (CH₂)₁₄ · CH₃</text>
+      <text x="694" y="93"  text-anchor="end" font-family="DM Sans,sans-serif" font-size="9" fill="#e8960a" font-weight="700">Saturated</text>
+
+      <rect x="202" y="124" width="520" height="42" rx="7" fill="#fef3d8" stroke="#e8960a" stroke-width="1.5"/>
+      <text x="218" y="141" font-family="DM Sans,sans-serif" font-size="9" fill="#3a2a00" font-weight="600">Fatty acid 2</text>
+      <text x="218" y="157" font-family="DM Mono,monospace" font-size="9" fill="#5a4a20">C=O · (CH₂)₇ · CH=CH · (CH₂)₇ · CH₃</text>
+      <text x="694" y="149" text-anchor="end" font-family="DM Sans,sans-serif" font-size="9" fill="#006938" font-weight="700">Unsaturated</text>
+
+      <rect x="202" y="180" width="520" height="42" rx="7" fill="#fef3d8" stroke="#e8960a" stroke-width="1.5"/>
+      <text x="218" y="197" font-family="DM Sans,sans-serif" font-size="9" fill="#3a2a00" font-weight="600">Fatty acid 3</text>
+      <text x="218" y="213" font-family="DM Mono,monospace" font-size="9" fill="#5a4a20">C=O · (CH₂)₁₄ · CH₃</text>
+      <text x="694" y="205" text-anchor="end" font-family="DM Sans,sans-serif" font-size="9" fill="#e8960a" font-weight="700">Saturated</text>
+
+      <!-- Bottom note -->
+      <text x="380" y="278" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#4a6868">3 ester bonds formed — 3 × H₂O released — dehydration synthesis</text>
+    </svg>
+    <div class="diagram-caption">Figure 1 — A triglyceride consists of glycerol joined to three fatty acid chains by ester bonds. One water molecule is lost per bond. A mixed triglyceride is shown here, with two saturated and one unsaturated fatty acid chain. (Campbell 12th ed., Fig. 5.10, p. 76)</div>
+  </div>
+
+  <!-- SECTION 3: SATURATED VS UNSATURATED -->
+  <div class="sec-label">Section 03</div>
+  <div class="sec-title">Saturated vs Unsaturated Fatty Acids</div>
+
+  <p class="body-text">The key structural variable in fatty acids is whether the hydrocarbon chain contains any <strong>carbon-carbon double bonds (C=C)</strong>. A <strong>saturated</strong> fatty acid has no double bonds — every carbon is bonded to the maximum number of hydrogens. An <strong>unsaturated</strong> fatty acid has one or more C=C double bonds, introducing a kink in the chain. <span class="cite">pp. 76–77</span></p>
+
+  <!-- SVG: Saturated vs Unsaturated -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Saturated vs Unsaturated Fatty Acid Chains</div>
+    <svg viewBox="0 0 760 220" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- LEFT: Saturated -->
+      <text x="190" y="20" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#003820" font-weight="700">Saturated (e.g. stearic acid)</text>
+      <!-- Straight zigzag chain -->
+      <polyline points="20,75 55,48 90,75 125,48 160,75 195,48 230,75 265,48 300,75 335,48 360,65" fill="none" stroke="#e8960a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- COOH label with space -->
+      <text x="368" y="70" font-family="DM Mono,monospace" font-size="11" fill="#3a2a00" font-weight="600">COOH</text>
+      <!-- Description below -->
+      <text x="190" y="102" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">Straight chain — packs tightly</text>
+      <text x="190" y="116" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">Solid at room temperature</text>
+
+      <!-- Divider -->
+      <line x1="430" y1="10" x2="430" y2="180" stroke="#dde8e8" stroke-width="1" stroke-dasharray="5,3"/>
+
+      <!-- RIGHT: Unsaturated -->
+      <text x="595" y="20" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#003820" font-weight="700">Unsaturated (e.g. oleic acid)</text>
+      <!-- Chain before kink -->
+      <polyline points="450,75 485,48 520,75 555,48" fill="none" stroke="#006938" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- Kink at double bond -->
+      <polyline points="555,48 575,72 600,52" fill="none" stroke="#006938" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- C=C label — clearly below kink -->
+      <text x="556" y="90" font-family="DM Mono,monospace" font-size="10" fill="#006938" font-weight="600">C=C kink</text>
+      <!-- Chain after kink -->
+      <polyline points="600,52 630,75 660,52 690,72" fill="none" stroke="#006938" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <!-- COOH -->
+      <text x="696" y="68" font-family="DM Mono,monospace" font-size="11" fill="#3a2a00" font-weight="600">COOH</text>
+      <!-- Description below -->
+      <text x="595" y="130" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">Kinked chain — cannot pack tightly</text>
+      <text x="595" y="144" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">Liquid at room temperature</text>
+    </svg>
+    <div class="diagram-caption">Figure 2 — Saturated fatty acids have straight chains that pack tightly together, producing solid fats (e.g. butter, lard). Unsaturated fatty acids have kinked chains that prevent tight packing, producing liquid oils (e.g. olive oil). (Campbell 12th ed., Fig. 5.11, p. 77)</div>
+  </div>
+
+  <table class="cmp-table">
+    <thead><tr><th></th><th>Saturated Fatty Acids</th><th>Unsaturated Fatty Acids</th></tr></thead>
+    <tbody>
+      <tr><td>C=C double bonds</td><td>None</td><td>One or more</td></tr>
+      <tr><td>Chain shape</td><td>Straight</td><td>Kinked at each double bond</td></tr>
+      <tr><td>Packing</td><td>Tight — molecules align closely</td><td>Loose — kinks prevent close alignment</td></tr>
+      <tr><td>State at room temp</td><td>Solid (fat)</td><td>Liquid (oil)</td></tr>
+      <tr><td>Common sources</td><td>Animal fats, coconut oil, palm oil</td><td>Plant oils, fish, nuts</td></tr>
+      <tr><td>Biological notes</td><td>High intake associated with cardiovascular risk</td><td>cis vs trans configuration matters — see below</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-warn">
+    <span class="callout-tag">⚠ Trans Fats</span>
+    Natural unsaturated fatty acids have a <strong>cis</strong> configuration at the double bond — the hydrogen atoms on the same side, producing the characteristic kink. Industrial hydrogenation creates <strong>trans</strong> fats, where hydrogens are on opposite sides, straightening the chain. Trans fats behave more like saturated fats structurally and are strongly associated with cardiovascular disease. Many countries have now banned or heavily restricted them. <span class="cite">p. 77</span>
+  </div>
+
+  <!-- SECTION 4: PHOSPHOLIPIDS -->
+  <div class="sec-label">Section 04</div>
+  <div class="sec-title">Phospholipids & the Cell Membrane</div>
+
+  <p class="body-text">A <strong>phospholipid</strong> has a similar backbone to a triglyceride — glycerol with fatty acid chains — but with a critical difference: one fatty acid is replaced by a <strong>phosphate group</strong> linked to a small polar molecule (such as choline). This gives the phospholipid two distinct regions: a <strong>hydrophilic head</strong> (the charged phosphate group) and two <strong>hydrophobic tails</strong> (the fatty acid chains). A molecule with both hydrophilic and hydrophobic regions is described as <strong>amphipathic</strong>. <span class="cite">Fig. 5.12, p. 78</span></p>
+
+  <!-- SVG: Phospholipid bilayer -->
+  <div class="diagram-wrap">
+    <div class="diagram-title">Phospholipid Structure & Bilayer Assembly</div>
+    <svg viewBox="0 0 760 280" xmlns="http://www.w3.org/2000/svg" style="max-width:100%;height:auto;">
+      <!-- LEFT: Single phospholipid -->
+      <text x="115" y="18" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#003820" font-weight="700">Single phospholipid</text>
+      <!-- Head circle -->
+      <circle cx="115" cy="62" r="28" fill="#006938" opacity="0.85"/>
+      <text x="115" y="58" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#fff" font-weight="700">Hydrophilic</text>
+      <text x="115" y="72" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#fff">head</text>
+      <!-- Tails -->
+      <line x1="100" y1="90"  x2="80"  y2="188" stroke="#e8960a" stroke-width="5" stroke-linecap="round"/>
+      <line x1="130" y1="90"  x2="150" y2="188" stroke="#e8960a" stroke-width="5" stroke-linecap="round"/>
+      <!-- Tail label — centred below tails -->
+      <text x="115" y="208" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#3a2a00" font-weight="600">Hydrophobic tails</text>
+      <!-- Leader lines to labels on right -->
+      <line x1="145" y1="60"  x2="200" y2="60"  stroke="#bbb" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="206" y="56" font-family="DM Sans,sans-serif" font-size="10" fill="#006938" font-weight="600">Phosphate group</text>
+      <text x="206" y="69" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">(hydrophilic polar head)</text>
+      <line x1="155" y1="138" x2="200" y2="138" stroke="#bbb" stroke-width="1" stroke-dasharray="4,2"/>
+      <text x="206" y="134" font-family="DM Sans,sans-serif" font-size="10" fill="#e8960a" font-weight="600">Fatty acid chains</text>
+      <text x="206" y="147" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">(hydrophobic tails)</text>
+
+      <!-- Divider -->
+      <line x1="360" y1="10" x2="360" y2="260" stroke="#dde8e8" stroke-width="1" stroke-dasharray="5,3"/>
+
+      <!-- RIGHT: Bilayer -->
+      <text x="560" y="18" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#003820" font-weight="700">Phospholipid bilayer</text>
+      <!-- Aqueous exterior label -->
+      <text x="560" y="38" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">Aqueous environment (outside cell)</text>
+      <!-- Outer heads ellipse -->
+      <ellipse cx="560" cy="60" rx="168" ry="14" fill="#006938" opacity="0.25" stroke="#006938" stroke-width="1.5"/>
+      <text x="560" y="65" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#006938" font-weight="600">Hydrophilic heads (exterior)</text>
+      <!-- Hydrophobic core band -->
+      <rect x="392" y="74" width="336" height="94" fill="#fef3d8" rx="2"/>
+      <text x="560" y="118" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#e8960a" font-weight="600">Hydrophobic core</text>
+      <text x="560" y="132" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#e8960a">(fatty acid tails face inward)</text>
+      <!-- Inner heads ellipse -->
+      <ellipse cx="560" cy="182" rx="168" ry="14" fill="#006938" opacity="0.25" stroke="#006938" stroke-width="1.5"/>
+      <text x="560" y="187" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#006938" font-weight="600">Hydrophilic heads (interior)</text>
+      <!-- Aqueous interior label -->
+      <text x="560" y="208" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a6868">Aqueous environment (cytoplasm)</text>
+    </svg>
+    <div class="diagram-caption">Figure 3 — A phospholipid is amphipathic: its polar head is hydrophilic and its two fatty acid tails are hydrophobic. In water, phospholipids spontaneously form bilayers with heads facing outward into aqueous environments and tails sequestered in the hydrophobic interior. (Campbell 12th ed., Fig. 5.12, p. 78 & Fig. 7.2, p. 128)</div>
+  </div>
+
+  <p class="body-text">This amphipathic structure means phospholipids spontaneously organise into bilayers in aqueous environments — the hydrophobic tails shield themselves from water by facing inward, while the hydrophilic heads face the aqueous environment on each side. No energy input is required. This is the structural basis of all biological membranes. <span class="cite">pp. 78, 128</span></p>
+
+  <!-- SECTION 5: CHOLESTEROL & STEROIDS -->
+  <div class="sec-label">Section 05</div>
+  <div class="sec-title">Steroids & Waxes</div>
+
+  <div class="cards">
+    <div class="card">
+      <span class="card-icon">🔷</span>
+      <div class="card-title">Steroids</div>
+      <div class="card-body">Lipids with a characteristic four-ring carbon skeleton. <strong>Cholesterol</strong> is the most important steroid in animals — it is a component of cell membranes (where it modulates fluidity) and is the precursor for all steroid hormones (testosterone, oestrogen, cortisol) and bile acids. Despite its reputation, cholesterol is essential for life at normal concentrations.</div>
+      <span class="card-ref">Fig. 5.14, p. 80</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">🕯️</span>
+      <div class="card-title">Waxes</div>
+      <div class="card-body">Long-chain fatty acids joined to long-chain alcohols by ester bonds. Highly hydrophobic and very stable. Form waterproof coatings on plant leaves (cuticle), insect exoskeletons, bird feathers, and mammalian fur. Beeswax is a familiar example. Their extreme hydrophobicity makes them excellent barriers to water loss.</div>
+      <span class="card-ref">p. 80</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">🧱</span>
+      <div class="card-title">Cholesterol in membranes</div>
+      <div class="card-body">Cholesterol molecules sit within the phospholipid bilayer, with their polar hydroxyl group near the phosphate heads and their hydrophobic rings among the fatty acid tails. At warm temperatures, cholesterol restrains phospholipid movement (reducing fluidity); at cold temperatures, it prevents tails from packing too rigidly (maintaining fluidity).</div>
+      <span class="card-ref">p. 132</span>
+    </div>
+    <div class="card">
+      <span class="card-icon">⚡</span>
+      <div class="card-title">Fat as Energy Storage</div>
+      <div class="card-body">Triglycerides store more than twice as much energy per gram as carbohydrates (~9 kcal/g vs ~4 kcal/g) because their hydrocarbon chains are highly reduced. They are also anhydrous — stored without water — making them a far more efficient energy store by mass than glycogen, which is stored with water.</div>
+      <span class="card-ref">p. 76</span>
+    </div>
+  </div>
+
+  <!-- KEY TERMS -->
+  <div class="sec-label">Section 06</div>
+  <div class="sec-title">Key Terms — Lipids</div>
+
+  <div class="terms-grid">
+    <div class="term-row"><div class="term-key">Lipid</div><div class="term-def">A diverse group of hydrophobic or amphipathic molecules unified by their insolubility in water. Includes fats, phospholipids, steroids, and waxes.</div></div>
+    <div class="term-row"><div class="term-key">Triglyceride</div><div class="term-def">A fat molecule consisting of glycerol joined to three fatty acid chains by ester bonds formed via dehydration synthesis. Primary long-term energy storage molecule.</div></div>
+    <div class="term-row"><div class="term-key">Fatty acid</div><div class="term-def">A long hydrocarbon chain with a carboxyl group (—COOH) at one end. Can be saturated (no C=C) or unsaturated (one or more C=C, introducing kinks).</div></div>
+    <div class="term-row"><div class="term-key">Ester bond</div><div class="term-def">The covalent bond linking a fatty acid to glycerol in a fat or phospholipid. Formed by dehydration synthesis between the carboxyl group of the fatty acid and a hydroxyl group of glycerol.</div></div>
+    <div class="term-row"><div class="term-key">Saturated fat</div><div class="term-def">A fat containing only saturated fatty acids (no C=C bonds). Straight chains allow tight packing; solid at room temperature. Found mainly in animal products.</div></div>
+    <div class="term-row"><div class="term-key">Unsaturated fat</div><div class="term-def">A fat containing one or more unsaturated fatty acids (one or more C=C bonds). Kinked chains prevent tight packing; liquid at room temperature. Found mainly in plants and fish.</div></div>
+    <div class="term-row"><div class="term-key">Phospholipid</div><div class="term-def">A lipid with a glycerol backbone, two fatty acid tails, and a phosphate-containing head group. Amphipathic — the structural basis of all biological membranes.</div></div>
+    <div class="term-row"><div class="term-key">Amphipathic</div><div class="term-def">Having both a hydrophilic region and a hydrophobic region. Phospholipids are amphipathic, which drives their spontaneous self-assembly into bilayers.</div></div>
+    <div class="term-row"><div class="term-key">Steroid</div><div class="term-def">A lipid with a four-ring carbon skeleton. Cholesterol is the most important animal steroid — a membrane component and precursor for steroid hormones.</div></div>
+    <div class="term-row"><div class="term-key">Hydrophobic</div><div class="term-def">Water-fearing — non-polar molecules that do not interact favourably with water. Hydrocarbon chains are hydrophobic because they have no polar bonds to form hydrogen bonds with water.</div></div>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="sec-label">Section 07</div>
+  <div class="sec-title">Watch & Explore Before Class</div>
+
+  <div class="resources">
+    <a class="resource-link" href="https://www.youtube.com/watch?v=1Dx7LDwINLU" target="_blank">
+      <span class="resource-icon">▶️</span>
+      <div class="resource-text"><span class="rt">Amoeba Sisters — Biomolecules (Updated 2023)</span><span class="rs">Covers all four biomolecules including lipids from 2:04 — fats, phospholipids, steroids (~9 min, YouTube)</span></div>
+      <span class="resource-arrow">→</span>
+    </a>
+    <a class="resource-link" href="https://www.youtube.com/watch?v=69-eGO7XDfU" target="_blank">
+      <span class="resource-icon">▶️</span>
+      <div class="resource-text"><span class="rt">2 Minute Classroom — Lipids: Fats, Steroids & Phospholipids</span><span class="rs">Concise overview of all lipid types including saturated vs unsaturated fatty acids (~5 min, YouTube)</span></div>
+      <span class="resource-arrow">→</span>
+    </a>
+    <a class="resource-link" href="https://www.youtube.com/watch?v=qBCVVszQQNs" target="_blank">
+      <span class="resource-icon">▶️</span>
+      <div class="resource-text"><span class="rt">Amoeba Sisters — Inside the Cell Membrane</span><span class="rs">Clear visual explanation of the phospholipid bilayer, cholesterol, and membrane proteins (~7 min, YouTube)</span></div>
+      <span class="resource-arrow">→</span>
+    </a>
+    <a class="resource-link" href="https://phet.colorado.edu/en/simulations/membrane-channels" target="_blank">
+      <span class="resource-icon">🔬</span>
+      <div class="resource-text"><span class="rt">PhET — Membrane Channels</span><span class="rs">Interactive simulation of molecules crossing the phospholipid bilayer (free, no login needed)</span></div>
+      <span class="resource-arrow">→</span>
+    </a>
+  </div>
+
+  <!-- CHECK YOUR UNDERSTANDING -->
+  <div class="sec-label">Section 08</div>
+  <div class="sec-title">Check Your Understanding</div>
+
+  <p class="body-text" style="margin-bottom:20px;">Answer these questions to test your understanding before the class session.</p>
+
+  <!-- Q1 -->
+  <div class="check-q" id="q1">
+    <div class="check-q-num">Question 1 of 5</div>
+    <div class="check-q-text">Why are lipids classified together as a group, despite their structural diversity?</div>
+    <div class="check-opts">
+      <button class="opt" onclick="ans(this,'q1','A','C')" data-v="A"><span class="opt-key">A</span> They all contain the same repeating monomer unit</button>
+      <button class="opt" onclick="ans(this,'q1','B','C')" data-v="B"><span class="opt-key">B</span> They are all found exclusively in animal cells</button>
+      <button class="opt" onclick="ans(this,'q1','C','C')" data-v="C"><span class="opt-key">C</span> They share the physical property of being hydrophobic or amphipathic — they do not mix with water</button>
+      <button class="opt" onclick="ans(this,'q1','D','C')" data-v="D"><span class="opt-key">D</span> They all contain a glycerol backbone</button>
+    </div>
+    <div class="fb ok" id="q1_ok">✓ Correct. Unlike carbohydrates, proteins, and nucleic acids — which are defined by their shared monomer-polymer chemistry — lipids are defined by a shared physical property: hydrophobicity. This is why triglycerides, phospholipids, steroids, and waxes are all called lipids despite having very different structures. (Ch. 5, p. 75)</div>
+    <div class="fb fail" id="q1_fail">✗ The answer is C. Lipids have no common monomer. Not all contain glycerol (steroids and waxes do not). The unifying feature is their hydrophobic or amphipathic nature — they are insoluble in water because they are made predominantly of non-polar hydrocarbon.</div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="check-q" id="q2">
+    <div class="check-q-num">Question 2 of 5</div>
+    <div class="check-q-text">Olive oil is liquid at room temperature while butter is solid. What structural difference between their fatty acids explains this?</div>
+    <div class="check-opts">
+      <button class="opt" onclick="ans(this,'q2','A','B')" data-v="A"><span class="opt-key">A</span> Olive oil contains shorter fatty acid chains than butter</button>
+      <button class="opt" onclick="ans(this,'q2','B','B')" data-v="B"><span class="opt-key">B</span> Olive oil contains unsaturated fatty acids with C=C double bonds that kink the chains, preventing tight packing; butter contains mainly saturated fatty acids with straight chains that pack tightly</button>
+      <button class="opt" onclick="ans(this,'q2','C','B')" data-v="C"><span class="opt-key">C</span> Butter contains more phospholipids than olive oil</button>
+      <button class="opt" onclick="ans(this,'q2','D','B')" data-v="D"><span class="opt-key">D</span> Olive oil has more glycerol molecules per fat molecule than butter</button>
+    </div>
+    <div class="fb ok" id="q2_ok">✓ Correct. C=C double bonds in unsaturated fatty acids introduce kinks that prevent adjacent chains from packing closely. Without tight packing, intermolecular forces are weaker and less energy (heat) is needed to overcome them — so the oil remains liquid at room temperature. Saturated chains in butter align tightly, requiring more energy to disrupt — hence solid at room temperature. (pp. 76–77, Fig. 5.11)</div>
+    <div class="fb fail" id="q2_fail">✗ The answer is B. Both olive oil and butter are triglycerides built from glycerol and three fatty acids. The difference is in the fatty acids: unsaturated (C=C double bonds, kinked chains) in olive oil vs saturated (no double bonds, straight chains) in butter. Kinks prevent tight packing → weaker intermolecular forces → lower melting point → liquid at room temperature.</div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="check-q" id="q3">
+    <div class="check-q-num">Question 3 of 5</div>
+    <div class="check-q-text">A phospholipid is described as amphipathic. What does this mean, and why is this property essential for membrane formation?</div>
+    <div class="check-opts">
+      <button class="opt" onclick="ans(this,'q3','A','C')" data-v="A"><span class="opt-key">A</span> It means the phospholipid can be both a fat and a carbohydrate depending on conditions</button>
+      <button class="opt" onclick="ans(this,'q3','B','C')" data-v="B"><span class="opt-key">B</span> It means the phospholipid has two fatty acid tails of different lengths</button>
+      <button class="opt" onclick="ans(this,'q3','C','C')" data-v="C"><span class="opt-key">C</span> It means the molecule has both a hydrophilic (polar) head and hydrophobic (non-polar) tails — in water, this drives spontaneous bilayer formation with tails facing inward, away from water</button>
+      <button class="opt" onclick="ans(this,'q3','D','C')" data-v="D"><span class="opt-key">D</span> It means the phospholipid can transport both water-soluble and fat-soluble molecules across membranes</button>
+    </div>
+    <div class="fb ok" id="q3_ok">✓ Correct. Amphipathic means having both hydrophilic and hydrophobic regions. When placed in water, phospholipids spontaneously arrange into bilayers: the hydrophilic heads interact with the aqueous environment on each side, while the hydrophobic tails hide from water by facing each other in the interior. No energy input is required — this self-assembly is thermodynamically spontaneous. (Fig. 5.12, p. 78)</div>
+    <div class="fb fail" id="q3_fail">✗ Amphipathic means having both a hydrophilic (water-loving) head and hydrophobic (water-fearing) tails. In water, the hydrophobic tails spontaneously arrange to minimise contact with water — which drives bilayer formation. The heads face outward into the aqueous environment and the tails face inward. This requires no energy input.</div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="check-q" id="q4">
+    <div class="check-q-num">Question 4 of 5</div>
+    <div class="check-q-text">Fat stores approximately 9 kcal/g of energy, while glycogen stores approximately 4 kcal/g — and glycogen is also stored alongside water, roughly tripling its effective mass. What does this tell us about why animals store long-term energy as fat rather than as glycogen?</div>
+    <div class="check-opts">
+      <button class="opt" onclick="ans(this,'q4','A','D')" data-v="A"><span class="opt-key">A</span> Glycogen is toxic at high concentrations, so it cannot be stored in large quantities</button>
+      <button class="opt" onclick="ans(this,'q4','B','D')" data-v="B"><span class="opt-key">B</span> Fat is easier to transport through the bloodstream than glycogen</button>
+      <button class="opt" onclick="ans(this,'q4','C','D')" data-v="C"><span class="opt-key">C</span> Glycogen cannot be stored in adipose tissue, which is where most long-term energy is stored</button>
+      <button class="opt" onclick="ans(this,'q4','D','D')" data-v="D"><span class="opt-key">D</span> Fat provides more than twice the energy per gram and is stored without water, making it a far more efficient long-term energy store by mass — critical for mobile animals where body weight matters</button>
+    </div>
+    <div class="fb ok" id="q4_ok">✓ Correct. For an animal that needs to move, carrying unnecessary mass has a real energetic cost. Fat's high energy density (~9 kcal/g, stored anhydrously) vs glycogen's lower density (~4 kcal/g, stored hydrated) means fat stores roughly 6× more energy per gram of actual body mass. A human carrying their entire energy reserve as glycogen would weigh many times more than they do. (p. 76)</div>
+    <div class="fb fail" id="q4_fail">✗ The answer is D. The key is energy efficiency by mass. Fat stores over twice the energy per gram compared to carbohydrates, AND it is stored dry (anhydrous) while glycogen is stored with water (adding mass without adding energy). For a mobile animal, this makes fat a vastly more efficient energy store.</div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="check-q" id="q5">
+    <div class="check-q-num">Question 5 of 5</div>
+    <div class="check-q-text">Cholesterol is often described negatively in popular culture. Based on what you have read, what are the essential biological roles of cholesterol that make it indispensable?</div>
+    <div class="check-opts">
+      <button class="opt" onclick="ans(this,'q5','A','C')" data-v="A"><span class="opt-key">A</span> Cholesterol is the primary energy storage molecule in animal cells</button>
+      <button class="opt" onclick="ans(this,'q5','B','C')" data-v="B"><span class="opt-key">B</span> Cholesterol forms the outer surface of all cell membranes, replacing phospholipids</button>
+      <button class="opt" onclick="ans(this,'q5','C','C')" data-v="C"><span class="opt-key">C</span> Cholesterol is a structural component of cell membranes that modulates fluidity, and is the precursor molecule for all steroid hormones and bile acids</button>
+      <button class="opt" onclick="ans(this,'q5','D','C')" data-v="D"><span class="opt-key">D</span> Cholesterol provides the phosphate head groups needed for phospholipid assembly</button>
+    </div>
+    <div class="fb ok" id="q5_ok">✓ Correct. Cholesterol has two essential roles: (1) membrane fluidity buffer — at high temperatures it slows phospholipid movement; at low temperatures it prevents solidification; (2) precursor molecule — all steroid hormones (testosterone, oestrogen, cortisol, aldosterone) and bile acids are synthesised from cholesterol. Problems arise from excess cholesterol, particularly oxidised LDL-cholesterol deposits in arterial walls — not from the molecule's normal roles. (pp. 80, 132)</div>
+    <div class="fb fail" id="q5_fail">✗ The answer is C. Cholesterol does not replace phospholipids — it sits among them in the bilayer, modulating their movement. It is also the essential precursor for steroid hormones and bile acids. At normal concentrations it is indispensable; health problems arise from elevated plasma cholesterol, particularly LDL-cholesterol, not from cholesterol's normal cellular functions.</div>
+  </div>
+
+</div>
+
+<div class="page-foot">Biomolecules Module · Lipids · Page 1 of 3 · Pre-Class Preparation · Campbell Biology 12th Ed., Ch. 5 pp. 75–80</div>
+
+<script>
+function ans(btn, qId, chosen, correct) {
+  const q = document.getElementById(qId);
+  if (q.dataset.done) return;
+  q.dataset.done = '1';
+  q.querySelectorAll('.opt').forEach(b => b.disabled = true);
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    document.getElementById(qId + '_ok').classList.add('show');
+  } else {
+    btn.classList.add('wrong');
+    q.querySelectorAll('.opt').forEach(b => { if (b.dataset.v === correct) b.classList.add('correct'); });
+    document.getElementById(qId + '_fail').classList.add('show');
+  }
+}
+</script>
+</body>
+</html>
